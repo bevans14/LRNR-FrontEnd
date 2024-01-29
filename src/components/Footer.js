@@ -19,7 +19,7 @@ export default function Footer() {
           <div className="col l3 s12 footer-col">
             <p className="footer-col__header">Links</p>
             <ul>
-              <li>
+              {/* <li>
                 <Link to="/">Home</Link>
               </li>
               <li>
@@ -27,7 +27,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/account">Account</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="col l3 s12"></div>
@@ -36,7 +36,10 @@ export default function Footer() {
       <div className="footer-copyright">
         <div className="container">
           "Made by"{" "}
-          <a class="white-text text-lighten-3" href="http://materializecss.com">
+          <a
+            className="white-text text-lighten-3"
+            href="http://materializecss.com"
+          >
             Materialize
           </a>
         </div>
