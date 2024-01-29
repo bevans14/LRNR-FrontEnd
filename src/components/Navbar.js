@@ -57,7 +57,7 @@ const Navbar = () => {
       <nav className="blue" role="navigation">
         <div className="nav-wrapper container" ref={navRef}>
           {/* Brand logo */}
-          <a id="logo-container" href="index.html" className="brand-logo">
+          <a id="logo-container" href="/" className="brand-logo">
             lrnr
           </a>
 
@@ -71,7 +71,7 @@ const Navbar = () => {
             </li>
             <li>
               {/* Quiz Generation link */}
-              <a href="#" onClick={handleLinkClick}>
+              <a href="/categories" onClick={handleLinkClick}>
                 Quiz Generation
               </a>
             </li>
@@ -93,7 +93,7 @@ const Navbar = () => {
             </li>
             <li>
               {/* Quiz Generation link in mobile menu */}
-              <a href="#" onClick={handleLinkClick}>
+              <a href="categories" onClick={handleLinkClick}>
                 Quiz Generation
               </a>
             </li>
