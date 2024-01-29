@@ -7,13 +7,13 @@ export default function Home_Main() {
     <div>
       <div className="section no-pad-bot" id="index-banner">
         <div className="container">
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+          />
           <br></br>
           <div className="banner">
-            <img
-              src="./images/completelogo.png"
-              alt="CompleteLogo"
-              style="max-width: 100%; max-height: 100%;"
-            />
+            <img src="./images/completelogo.png" alt="CompleteLogo" />
           </div>
           <div className="row center">
             <p className="header-5 col s12 light sub-header">
@@ -25,7 +25,6 @@ export default function Home_Main() {
             <a
               id="download-button"
               className="btn-large waves-effect waves-light teal"
-              onclick="login()"
             >
               Begin Journey
             </a>
