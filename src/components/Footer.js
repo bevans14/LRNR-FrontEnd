@@ -1,4 +1,5 @@
-import React, { Link } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import "materialize-css/dist/css/materialize.min.css";
 import "../css/shared.css";
 
@@ -19,7 +20,7 @@ export default function Footer() {
           <div className="col l3 s12 footer-col">
             <p className="footer-col__header">Links</p>
             <ul>
-              {/* <li>
+              <li>
                 <Link to="/">Home</Link>
               </li>
               <li>
@@ -27,7 +28,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/account">Account</Link>
-              </li> */}
+              </li>
             </ul>
           </div>
           <div className="col l3 s12"></div>
