@@ -1,0 +1,10 @@
+.dropdown-content {
+  display: "block";
+  width: "228.297px";
+  left: 0;
+  top: 0;
+  height: 400;
+  transform-origin: "0px 0px";
+  opacity: 1;
+  transform: scaleX(1) scaleY(1);
+}
