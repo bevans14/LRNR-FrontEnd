@@ -3,6 +3,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import "../css/shared.css";
 import "../css/categories.css";
 
+
 export default function Categories_Main() {
   const [topic, setTopic] = useState("");
   const [expertise, setExpertise] = useState("");
@@ -452,4 +453,5 @@ export default function Categories_Main() {
   );
 }
 
-//addd more dropdowns
+//added more dropdowns
+
