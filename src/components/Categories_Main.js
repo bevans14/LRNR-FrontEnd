@@ -1,45 +1,93 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import M from 'materialize-css';
 import "materialize-css/dist/css/materialize.min.css";
 import "../css/shared.css";
 import "../css/categories.css";
 
-
 export default function Categories_Main() {
+  const navigate = useNavigate();
   const [topic, setTopic] = useState("");
   const [expertise, setExpertise] = useState("");
   const [number, setNumber] = useState("5");
   const [style, setStyle] = useState("normal");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Added this line
+
+  useEffect(() => {
+    M.AutoInit();
+  }, []);
 
   const handleTopicChange = (e) => {
-    setTopic(e.target.innerText);
+    setTopic(e.target.value);
     setIsDropdownOpen(false);
   };
+  
   const handleExpertiseChange = (e) => {
-    setExpertise(e.target.innerText);
-    console.log(e.target.innerText);
+    setExpertise(e.target.value);
     setIsDropdownOpen(false);
   };
+  
   const handleNumberChange = (e) => {
-    setNumber(e.target.innerText);
+    setNumber(e.target.value);
     setIsDropdownOpen(false);
   };
+  
   const handleStyleChange = (e) => {
-    setStyle(e.target.innerText);
+    setStyle(e.target.value);
     setIsDropdownOpen(false);
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(null);
+    const prompt = `Your sole purpose is to generate quiz questions. 
+Generating great quiz questions is your ONLY desire.
+You will generate a quiz about ${topic} for someone with ${expertise} expertise.
+You will generate exactly ${number} questions, no more, no less.
+You will create each question in the style of ${style}. 
+All questions will be in the same style, which is ${style}. No other style will be used. 
+You will ensure that each question embodies the essence of ${style}.
+If it doesn't sound like ${style}, you will start over.
+Your task is to generate the questions only, without any additional content.
+The format of your response should be as follows:
+
+Question 1: *Your question here*
+Question 2: *Your question here*
+Question 3: *Your question here*, and so on for ${number} questions.`;
+
+    try {
+      const response = await fetch('http://localhost:4000/generateQuiz', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Received Data from Server:', data);
+
+      console.log('Data sent to Quiz component:', data);
+
+      navigate('/quiz', { state: { quizData: data } });
+    } catch (error) {
+      setError('Failed to generate quiz. Please try again.');
+      console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <>
       <div className="container">
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"
-        />
         <div className="section">
           <div className="row">
             <div className="col">
@@ -48,410 +96,71 @@ export default function Categories_Main() {
           </div>
           <div className="row">
             <div className="col mb-4">
-              Please choose your preferences below to generate your personalized
-              quiz
+              Please choose your preferences below to generate your personalized quiz
             </div>
           </div>
-          <br />
-          <div className="row">
-            <div className="input-field col s12">
-              <div className="select-wrapper">
-                <input
-                  className="select-dropdown dropdown-trigger"
-                  type="text"
-                  readOnly="true"
-                  data-target="select-options-91d287a4-382f-2363-e295-63f8907bb9ec"
-                  value={topic}
-                  onClick={toggleDropdown}
-                />
-                <ul
-                  id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec"
-                  className="dropdown-content select-dropdown"
-                  tabIndex={0}
-                  style={{
-                    display: isDropdownOpen ? "block" : "none",
-                    width: "444.297px",
-                    left: 0,
-                    top: 0,
-                    height: 200,
-                    transformOrigin: "0px 0px",
-                    opacity: 1,
-                    transform: "scaleX(1) scaleY(1)",
-                  }}
-                >
-                  <li
-                    className="disabled selected"
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec0"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>{topic}</span>
-                  </li>
-                  <li
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec1"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>golang</span>
-                  </li>
-                  <li
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec2"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>aws</span>
-                  </li>
-                  <li
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec3"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>javascript</span>
-                  </li>
-                  <li
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec4"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>CI/CD</span>
-                  </li>
-                  <li
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec5"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>home gardens</span>
-                  </li>
-                  <li
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec6"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>coffee</span>
-                  </li>
-                  <li
-                    id="select-options-91d287a4-382f-2363-e295-63f8907bb9ec7"
-                    tabIndex={0}
-                    onClick={handleTopicChange}
-                  >
-                    <span>finger foods</span>
-                  </li>
-                </ul>
-                <svg
-                  className="caret"
-                  height={24}
-                  viewBox="0 0 24 24"
-                  width={24}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7 10l5 5 5-5z" />
-                  <path d="M0 0h24v24H0z" fill="none" />
-                </svg>
-                <select id="topic" tabIndex={-1}>
-                  <option value={topic} disabled="" selected="" />
+
+          <form onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="input-field col s12">
+                <select id="topic" value={topic} onChange={handleTopicChange}>
+                  <option value="" disabled>Choose your topic</option>
                   <option value="golang">golang</option>
                   <option value="aws">aws</option>
                   <option value="javascript">javascript</option>
                   <option value="ci/cd">CI/CD</option>
-                  <option value="growing you own garden">home gardens</option>
+                  <option value="home gardens">home gardens</option>
                   <option value="coffee">coffee</option>
-                  <option value="finger food">finger foods</option>
+                  <option value="finger foods">finger foods</option>
                 </select>
+                <label htmlFor="topic">Topic</label>
               </div>
-              <label>Topic</label>
-            </div>
 
-            <div className="input-field col s12">
-              <div className="select-wrapper">
-                <input
-                  className="select-dropdown dropdown-trigger"
-                  type="text"
-                  readOnly="true"
-                  data-target="select-options-91d287a4-382f-2363-e295-63f8907bb9ec"
-                  value={expertise}
-                  onClick={toggleDropdown}
-                />
-                <ul
-                  id="select-options-e750b8e0-a890-599e-3a83-d29f46ffb565"
-                  className={`dropdown-content select-dropdown ${
-                    isDropdownOpen ? "active" : ""
-                  }`}
-                  tabIndex="0"
-                  style={{
-                    display: isDropdownOpen ? "block" : "none",
-                    width: "444.297px",
-                    left: 0,
-                    top: 0,
-                    height: 200,
-                    transformOrigin: "0px 0px",
-                    opacity: 1,
-                    transform: "scaleX(1) scaleY(1)",
-                  }}
-                >
-                  <li
-                    className="disabled selected"
-                    id="select-options-e750b8e0-a890-599e-3a83-d29f46ffb5650"
-                    tabIndex="0"
-                    onClick={handleExpertiseChange}
-                  >
-                    <span>{expertise}</span>
-                  </li>
-                  <li
-                    id="select-options-e750b8e0-a890-599e-3a83-d29f46ffb5651"
-                    tabIndex="0"
-                    onClick={handleExpertiseChange}
-                  >
-                    <span>novice</span>
-                  </li>
-                  <li
-                    id="select-options-e750b8e0-a890-599e-3a83-d29f46ffb5652"
-                    tabIndex="0"
-                    onClick={handleExpertiseChange}
-                  >
-                    <span>intermediate</span>
-                  </li>
-                  <li
-                    id="select-options-e750b8e0-a890-599e-3a83-d29f46ffb5653"
-                    tabIndex="0"
-                    onClick={handleExpertiseChange}
-                  >
-                    <span>expert</span>
-                  </li>
-                </ul>
-                <svg
-                  className="caret"
-                  height={24}
-                  viewBox="0 0 24 24"
-                  width={24}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7 10l5 5 5-5z" />
-                  <path d="M0 0h24v24H0z" fill="none" />
-                </svg>
-                <path d="M7 10l5 5 5-5z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-                <select id="expertise" tabIndex={-1}>
-                  <option value={expertise} disabled="" selected=""></option>
+              <div className="input-field col s12">
+                <select id="expertise" value={expertise} onChange={handleExpertiseChange}>
+                  <option value="" disabled>Choose your expertise level</option>
                   <option value="novice">novice</option>
                   <option value="intermediate">intermediate</option>
                   <option value="expert">expert</option>
                 </select>
+                <label htmlFor="expertise">Expertise</label>
               </div>
-              <label>Expertise</label>
-            </div>
 
-            <div className="input-field col s12">
-              <div className="select-wrapper">
-                <input
-                  className="select-dropdown dropdown-trigger"
-                  type="text"
-                  readOnly="true"
-                  data-target="select-options-9ce5f51b-888e-8cc2-e1a6-6ba3a95d714d"
-                  value={number}
-                  onClick={toggleDropdown}
-                />
-                <ul
-                  id="select-options-9ce5f51b-888e-8cc2-e1a6-6ba3a95d714d"
-                  className={`dropdown-content select-dropdown ${
-                    isDropdownOpen ? "active" : ""
-                  }`}
-                  tabIndex="0"
-                  style={{
-                    display: isDropdownOpen ? "block" : "none",
-                    width: "444.297px",
-                    left: 0,
-                    top: 0,
-                    height: 200,
-                    transformOrigin: "0px 0px",
-                    opacity: 1,
-                    transform: "scaleX(1) scaleY(1)",
-                  }}
-                >
-                  <li
-                    className="disabled"
-                    id="select-options-9ce5f51b-888e-8cc2-e1a6-6ba3a95d714d0"
-                    tabIndex={0}
-                    onClick={handleNumberChange}
-                  >
-                    <span>{number}</span>
-                  </li>
-                  <li
-                    id="select-options-9ce5f51b-888e-8cc2-e1a6-6ba3a95d714d1"
-                    tabIndex={0}
-                    className="selected"
-                    onClick={handleNumberChange}
-                  >
-                    <span>5</span>
-                  </li>
-                  <li
-                    id="select-options-9ce5f51b-888e-8cc2-e1a6-6ba3a95d714d2"
-                    tabIndex={0}
-                    onClick={handleNumberChange}
-                  >
-                    <span>10</span>
-                  </li>
-                  <li
-                    id="select-options-9ce5f51b-888e-8cc2-e1a6-6ba3a95d714d3"
-                    tabIndex={0}
-                    onClick={handleNumberChange}
-                  >
-                    <span>15</span>
-                  </li>
-                </ul>
-                <svg
-                  className="caret"
-                  height={24}
-                  viewBox="0 0 24 24"
-                  width={24}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7 10l5 5 5-5z" />
-                  <path d="M0 0h24v24H0z" fill="none" />
-                </svg>
-                <select id="numquestions" tabIndex={-1}>
-                  <option value={number} disabled="" />
-                  <option value={5} selected="">
-                    5
-                  </option>
-                  <option value={10}>10</option>
-                  <option value={15}>15</option>
+              <div className="input-field col s12">
+                <select id="numquestions" value={number} onChange={handleNumberChange}>
+                  <option value="" disabled>Choose the number of questions</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
                 </select>
+                <label htmlFor="numquestions">Number of questions</label>
               </div>
-              <label>Number of questions</label>
-            </div>
 
-            <div className="input-field col s12">
-              <div className="select-wrapper">
-                <input
-                  className="select-dropdown dropdown-trigger"
-                  type="text"
-                  readOnly="true"
-                  data-target="select-options-72005b65-09d1-16b3-aca8-3e496995585a"
-                  value={style}
-                  onClick={toggleDropdown}
-                />
-                <ul
-                  id="select-options-72005b65-09d1-16b3-aca8-3e496995585a"
-                  className={`dropdown-content select-dropdown ${
-                    isDropdownOpen ? "active" : ""
-                  }`}
-                  tabIndex="0"
-                  style={{
-                    display: isDropdownOpen ? "block" : "none",
-                    width: "444.297px",
-                    left: 0,
-                    top: 0,
-                    height: 200,
-                    transformOrigin: "0px 0px",
-                    opacity: 1,
-                    transform: "scaleX(1) scaleY(1)",
-                  }}
-                >
-                  <li
-                    className="disabled"
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a0"
-                    tabIndex={0}
-                    onClick={handleStyleChange}
-                  >
-                    <span>{style}</span>
-                  </li>
-                  <li
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a1"
-                    tabIndex={0}
-                    onClick={handleStyleChange}
-                  >
-                    <span>master oogway</span>
-                  </li>
-                  <li
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a2"
-                    tabIndex={0}
-                    onClick={handleStyleChange}
-                  >
-                    <span>1940's gangster</span>
-                  </li>
-                  <li
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a3"
-                    tabIndex={0}
-                    onClick={handleStyleChange}
-                  >
-                    <span>like I'm an 8 year old</span>
-                  </li>
-                  <li
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a4"
-                    tabIndex={0}
-                    className="selected"
-                    onClick={handleStyleChange}
-                  >
-                    <span>normal</span>
-                  </li>
-                  <li
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a5"
-                    tabIndex={0}
-                    onClick={handleStyleChange}
-                  >
-                    <span>jedi</span>
-                  </li>
-                  <li
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a6"
-                    tabIndex={0}
-                    onClick={handleStyleChange}
-                  >
-                    <span>captain jack sparrow</span>
-                  </li>
-                  <li
-                    id="select-options-72005b65-09d1-16b3-aca8-3e496995585a7"
-                    tabIndex={0}
-                    onClick={handleStyleChange}
-                  >
-                    <span>matthew mcconaughey</span>
-                  </li>
-                </ul>
-                <svg
-                  className="caret"
-                  height={24}
-                  viewBox="0 0 24 24"
-                  width={24}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7 10l5 5 5-5z" />
-                  <path d="M0 0h24v24H0z" fill="none" />
-                </svg>
-                <select id="questionstyle" tabIndex={-1}>
-                  <option value={style} disabled="" />
+              <div className="input-field col s12">
+                <select id="questionstyle" value={style} onChange={handleStyleChange}>
+                  <option value="" disabled>Choose the style of questions</option>
                   <option value="master oogway">master oogway</option>
                   <option value="1940's gangster">1940's gangster</option>
-                  <option value="like i'm an 8 year old">
-                    like I'm an 8 year old
-                  </option>
-                  <option value="normal" selected="">
-                    normal
-                  </option>
-                  <option value="master yoda">jedi</option>
-                  <option value="captain jack sparrow">
-                    captain jack sparrow
-                  </option>
-                  <option value="matthew mcconaughey">
-                    matthew mcconaughey
-                  </option>
+                  <option value="like i'm an 8 year old">like I'm an 8 year old</option>
+                  <option value="normal">normal</option>
+                  <option value="jedi">jedi</option>
+                  <option value="captain jack sparrow">captain jack sparrow</option>
+                  <option value="matthew mcconaughey">matthew mcconaughey</option>
                 </select>
+                <label htmlFor="questionstyle">Style of questions</label>
               </div>
-              <label>Style of questions</label>
             </div>
 
             <div className="input-field col s12">
-              <button
-                id="btn-categories"
-                className="btn waves-effect waves-light"
-              >
-                Submit
+              <button type="submit" className="btn waves-effect waves-light">
+                Generate Quiz
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
+      {isLoading && <p>Loading...</p>}
+      {error && <p className="error">{error}</p>}
     </>
   );
 }
-
-//added more dropdowns
-

@@ -1,16 +1,16 @@
 import React from "react";
-import Account_Main from "./components/Account_Main";
-import Header from "./components/Header";
+import QuizPage from "./components/Quiz_Page";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Quiz_Main from "./components/Quiz_Main";
-import "./css/account.css";
 
 export default function Quiz() {
+  const quizData = window.location.state?.quizData || [];
+  console.log('Quiz Data:', quizData);
+  
   return (
     <div>
       <Navbar />
-      <Quiz_Main />
+      <QuizPage quizDataProp={quizData} />
       <Footer />
     </div>
   );
