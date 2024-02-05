@@ -18,16 +18,22 @@ export default function Footer() {
           </div>
           <div className="col l3 s12"></div>
           <div className="col l3 s12 footer-col">
-            <p className="footer-col__header">Links</p>
+            <p className="white-text header-5 footer-col__header">Links</p>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link className="white-text" to="/">
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to="/categories">Quiz Generator</Link>
+                <Link className="white-text" to="/categories">
+                  Quiz Generator
+                </Link>
               </li>
               <li>
-                <Link to="/account">Account</Link>
+                <Link className="white-text" to="/account">
+                  Account
+                </Link>
               </li>
             </ul>
           </div>

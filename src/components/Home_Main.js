@@ -14,7 +14,7 @@ export default function Home_Main() {
           />
           <br></br>
           <div className="banner">
-            <img src="./images/completelogo.png" alt="CompleteLogo" />
+            <img src="../assets/images/completelogo.png" alt="CompleteLogo" />
           </div>
           <div className="row center">
             <p className="header-5 col s12 light sub-header">

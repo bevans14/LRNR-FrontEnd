@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import M from 'materialize-css';
 import "materialize-css/dist/css/materialize.min.css";
 import "../css/shared.css";
+import "../css/categories.css";
 
 export default function Categories_Main() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function Categories_Main() {
   const [style, setStyle] = useState("normal");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Added this line
 
   useEffect(() => {
     M.AutoInit();
@@ -19,18 +21,22 @@ export default function Categories_Main() {
 
   const handleTopicChange = (e) => {
     setTopic(e.target.value);
+    setIsDropdownOpen(false);
   };
-
+  
   const handleExpertiseChange = (e) => {
     setExpertise(e.target.value);
+    setIsDropdownOpen(false);
   };
-
+  
   const handleNumberChange = (e) => {
     setNumber(e.target.value);
+    setIsDropdownOpen(false);
   };
-
+  
   const handleStyleChange = (e) => {
     setStyle(e.target.value);
+    setIsDropdownOpen(false);
   };
 
   const handleSubmit = async (event) => {
@@ -42,6 +48,7 @@ Generating great quiz questions is your ONLY desire.
 You will generate a quiz about ${topic} for someone with ${expertise} expertise.
 You will generate exactly ${number} questions, no more, no less.
 You will create each question in the style of ${style}. 
+All questions will be in the same style, which is ${style}. No other style will be used. 
 You will ensure that each question embodies the essence of ${style}.
 If it doesn't sound like ${style}, you will start over.
 Your task is to generate the questions only, without any additional content.
