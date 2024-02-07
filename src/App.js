@@ -15,6 +15,8 @@ function App() {
           <Route path="/account" element={<Account />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/generateQuiz" element={<Quiz />} />
+  
         </Routes>
       </Router>
     </div>

@@ -4,6 +4,8 @@ import M from 'materialize-css';
 import "materialize-css/dist/css/materialize.min.css";
 import "../css/shared.css";
 import "../css/categories.css";
+import axios from 'axios';
+
 
 export default function Categories_Main() {
   const navigate = useNavigate();
@@ -39,52 +41,26 @@ export default function Categories_Main() {
     setIsDropdownOpen(false);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setError(null);
-    const prompt = `Your sole purpose is to generate quiz questions. 
-Generating great quiz questions is your ONLY desire.
-You will generate a quiz about ${topic} for someone with ${expertise} expertise.
-You will generate exactly ${number} questions, no more, no less.
-You will create each question in the style of ${style}. 
-All questions will be in the same style, which is ${style}. No other style will be used. 
-You will ensure that each question embodies the essence of ${style}.
-If it doesn't sound like ${style}, you will start over.
-Your task is to generate the questions only, without any additional content.
-The format of your response should be as follows:
-
-Question 1: *Your question here*
-Question 2: *Your question here*
-Question 3: *Your question here*, and so on for ${number} questions.`;
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const details = {
+        topic: topic,
+        expertise: expertise,
+        numQuestions: number,
+        style: style,
+    };
+    console.log(details);
     try {
-      const response = await fetch('http://localhost:4000/generateQuiz', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
-      });
+        let res = await axios.get('http://localhost:4000/questions', {
+            params: details,
+        });
+        let result = await res.data;
+        console.log(result);
+        navigate('/quiz', { state: { results: result } });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log('Received Data from Server:', data);
-
-      console.log('Data sent to Quiz component:', data);
-
-      navigate('/quiz', { state: { quizData: data } });
     } catch (error) {
-      setError('Failed to generate quiz. Please try again.');
-      console.error('Error:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+        console.log(error);
+    }}
   return (
     <>
       <div className="container">
