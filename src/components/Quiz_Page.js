@@ -7,25 +7,20 @@ export default function Quiz_Page({ quizDataProp }) {
   const [quizData, setQuizData] = useState([]);
 
   useEffect(() => {
-    console.log('Received Quiz Data Prop:', quizDataProp);
-
+    // Set quiz data received from props
     if (quizDataProp && quizDataProp.length > 0) {
-      //split received data into individual questions
+      // Split received data into individual questions
       const questions = quizDataProp[0].split('\n');
-
-      //remove the first element which is empty
+      // Remove the first element which is empty
       questions.shift();
-
-      //update questions with the correct format
+      // Update questions with the correct format
       const formattedQuestions = questions.map((question) => {
-        //extract question text
+        // Extract question text
         const questionText = question.trim();
-
         return {
           questionText,
         };
       });
-
       setQuizData(formattedQuestions);
     }
   }, [quizDataProp]);
@@ -34,7 +29,7 @@ export default function Quiz_Page({ quizDataProp }) {
     if (currentQuestionIndex < quizData.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      //quiz is over
+      // Quiz is over
       setIsQuizFinished(true);
     }
   };
