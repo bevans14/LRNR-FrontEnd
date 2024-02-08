@@ -6,7 +6,6 @@ import "../css/shared.css";
 import "../css/categories.css";
 import axios from 'axios';
 
-
 export default function Categories_Main() {
   const navigate = useNavigate();
   const [topic, setTopic] = useState("");
@@ -15,7 +14,6 @@ export default function Categories_Main() {
   const [style, setStyle] = useState("normal");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Added this line
 
   useEffect(() => {
     M.AutoInit();
@@ -23,44 +21,46 @@ export default function Categories_Main() {
 
   const handleTopicChange = (e) => {
     setTopic(e.target.value);
-    setIsDropdownOpen(false);
   };
   
   const handleExpertiseChange = (e) => {
     setExpertise(e.target.value);
-    setIsDropdownOpen(false);
   };
   
   const handleNumberChange = (e) => {
     setNumber(e.target.value);
-    setIsDropdownOpen(false);
   };
   
   const handleStyleChange = (e) => {
     setStyle(e.target.value);
-    setIsDropdownOpen(false);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
     const details = {
-        topic: topic,
-        expertise: expertise,
-        numQuestions: number,
-        style: style,
+      topic: topic,
+      expertise: expertise,
+      numQuestions: number,
+      style: style,
     };
-    console.log(details);
-    try {
-        let res = await axios.get('http://localhost:4000/questions', {
-            params: details,
-        });
-        let result = await res.data;
-        console.log(result);
-        navigate('/quiz', { state: { results: result } });
 
+    try {
+      const res = await axios.get('http://localhost:4000/questions', { params: details });
+      const generatedQuestions = await res.data;
+      
+      //correctly pass the generated questions to the /quiz route
+      navigate('/quiz', { state: { questions: generatedQuestions.Questions } });
+
+      setIsLoading(false);
     } catch (error) {
-        console.log(error);
-    }}
+      console.error(error);
+      setError('An error occurred while generating the quiz.');
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="container">
@@ -72,10 +72,9 @@ export default function Categories_Main() {
           </div>
           <div className="row">
             <div className="col mb-4">
-              Please choose your preferences below to generate your personalized quiz
+              Please choose your preferences below to generate your personalized quiz:
             </div>
           </div>
-
           <form onSubmit={handleSubmit}>
             <div className="row">
               <div className="input-field col s12">
@@ -91,7 +90,6 @@ export default function Categories_Main() {
                 </select>
                 <label htmlFor="topic">Topic</label>
               </div>
-
               <div className="input-field col s12">
                 <select id="expertise" value={expertise} onChange={handleExpertiseChange}>
                   <option value="" disabled>Choose your expertise level</option>
@@ -101,7 +99,6 @@ export default function Categories_Main() {
                 </select>
                 <label htmlFor="expertise">Expertise</label>
               </div>
-
               <div className="input-field col s12">
                 <select id="numquestions" value={number} onChange={handleNumberChange}>
                   <option value="" disabled>Choose the number of questions</option>
@@ -109,9 +106,8 @@ export default function Categories_Main() {
                   <option value="10">10</option>
                   <option value="15">15</option>
                 </select>
-                <label htmlFor="numquestions">Number of questions</label>
+                <label htmlFor="numquestions">Number of Questions</label>
               </div>
-
               <div className="input-field col s12">
                 <select id="questionstyle" value={style} onChange={handleStyleChange}>
                   <option value="" disabled>Choose the style of questions</option>
@@ -123,14 +119,11 @@ export default function Categories_Main() {
                   <option value="captain jack sparrow">captain jack sparrow</option>
                   <option value="matthew mcconaughey">matthew mcconaughey</option>
                 </select>
-                <label htmlFor="questionstyle">Style of questions</label>
+                <label htmlFor="questionstyle">Style of Questions</label>
               </div>
             </div>
-
             <div className="input-field col s12">
-              <button type="submit" className="btn waves-effect waves-light">
-                Generate Quiz
-              </button>
+              <button type="submit" className="btn waves-effect waves-light">Generate Quiz</button>
             </div>
           </form>
         </div>

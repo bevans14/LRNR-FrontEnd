@@ -4,13 +4,12 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export default function Quiz() {
-  const quizData = window.location.state?.quizData || [];
-  console.log('Quiz Data:', quizData);
+  
   
   return (
     <div>
       <Navbar />
-      <QuizPage quizDataProp={quizData} />
+      <QuizPage />
       <Footer />
     </div>
   );
