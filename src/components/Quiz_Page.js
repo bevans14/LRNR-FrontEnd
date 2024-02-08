@@ -1,35 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export default function Quiz_Page({ quizDataProp }) {
+export default function Quiz_Page() {
+  const location = useLocation();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [isQuizFinished, setIsQuizFinished] = useState(false);
-  const [quizData, setQuizData] = useState([]);
+  //access the questions passed via state
+  const [quizData, setQuizData] = useState(location.state?.questions || []);
 
   useEffect(() => {
-    // Set quiz data received from props
-    if (quizDataProp && quizDataProp.length > 0) {
-      // Split received data into individual questions
-      const questions = quizDataProp[0].split('\n');
-      // Remove the first element which is empty
-      questions.shift();
-      // Update questions with the correct format
-      const formattedQuestions = questions.map((question) => {
-        // Extract question text
-        const questionText = question.trim();
-        return {
-          questionText,
-        };
-      });
-      setQuizData(formattedQuestions);
-    }
-  }, [quizDataProp]);
+  }, [quizData]);
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < quizData.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // Quiz is over
       setIsQuizFinished(true);
     }
   };
@@ -45,15 +31,16 @@ export default function Quiz_Page({ quizDataProp }) {
       {!isQuizFinished && quizData.length > 0 && (
         <>
           <h3>Question {currentQuestionIndex + 1}</h3>
-          <p>{quizData[currentQuestionIndex].questionText}</p>
+          <p>{quizData[currentQuestionIndex]}</p>
           <div className="input-field col s12">
             <input
               type="text"
               id="answer"
+              name="answer"
               value={userAnswers[currentQuestionIndex] || ''}
               onChange={handleAnswerChange}
             />
-            <label htmlFor="answer">Your Answer</label>
+            <label htmlFor="answer" className={userAnswers[currentQuestionIndex] ? "active" : ""}>Your Answer</label>
           </div>
           <button
             className="btn waves-effect waves-light"
@@ -70,7 +57,7 @@ export default function Quiz_Page({ quizDataProp }) {
           <ul>
             {quizData.map((question, index) => (
               <li key={index}>
-                Question {index + 1}: {question.questionText}
+                Question {index + 1}: {question}
                 <br />
                 Your Answer: {userAnswers[index] || 'Not answered'}
               </li>
