@@ -1,28 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Quiz_Page() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
+  const [evaluationResult, setEvaluationResult] = useState('');
+  const [evaluationExplanation, setEvaluationExplanation] = useState('');
   const [isQuizFinished, setIsQuizFinished] = useState(false);
-  //access the questions passed via state
-  const [quizData, setQuizData] = useState(location.state?.questions || []);
-
-  useEffect(() => {
-  }, [quizData]);
-
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < quizData.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    } else {
-      setIsQuizFinished(true);
-    }
-  };
+  const quizData = location.state?.questions || [];
 
   const handleAnswerChange = (e) => {
     const answer = e.target.value;
     setUserAnswers({ ...userAnswers, [currentQuestionIndex]: answer });
+  };
+
+  const handleSubmitAnswer = async () => {
+    const currentQuestion = quizData[currentQuestionIndex];
+    const userAnswer = userAnswers[currentQuestionIndex];
+    try {
+      const response = await fetch(`http://localhost:4000/evaluation?question=${encodeURIComponent(currentQuestion)}&submission=${encodeURIComponent(userAnswer)}`, {
+        method: 'GET',
+      });
+      const data = await response.json();
+      setEvaluationResult(data.evaluation);
+      setEvaluationExplanation(data.explanation);
+    } catch (error) {
+      console.error("Failed to submit answer for evaluation:", error);
+      
+    }
+  };
+
+  const handleNextQuestion = () => {
+    setEvaluationResult('');
+    setEvaluationExplanation('');
+    if (currentQuestionIndex < quizData.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      setIsQuizFinished(true);
+      navigate('/results', { state: { userAnswers, quizData } });
+    }
   };
 
   return (
@@ -44,26 +62,37 @@ export default function Quiz_Page() {
           </div>
           <button
             className="btn waves-effect waves-light"
-            onClick={handleNextQuestion}
+            onClick={handleSubmitAnswer}
+            disabled={!userAnswers[currentQuestionIndex]}
           >
-            Next Question
+            Submit Answer
+          </button>
+          {evaluationResult && (
+            <div className="evaluation-result">
+              <strong>Evaluation:</strong> Your answer is {evaluationResult}.<br />
+              <strong>Explanation:</strong> {evaluationExplanation}
+            </div>
+          )}
+          <button
+            className="btn waves-effect waves-light"
+            style={{ marginTop: '20px' }}
+            onClick={handleNextQuestion}
+            disabled={evaluationResult === ''}
+          >
+            {currentQuestionIndex < quizData.length - 1 ? "Next Question" : "Finish Test"}
           </button>
         </>
       )}
       {isQuizFinished && (
-        <>
+        <div>
           <h3>Quiz Finished!</h3>
-          <p>Your answers:</p>
-          <ul>
-            {quizData.map((question, index) => (
-              <li key={index}>
-                Question {index + 1}: {question}
-                <br />
-                Your Answer: {userAnswers[index] || 'Not answered'}
-              </li>
-            ))}
-          </ul>
-        </>
+          <button
+            className="btn waves-effect waves-light"
+            onClick={() => navigate('/results', { state: { userAnswers, quizData } })}
+          >
+            View Results
+          </button>
+        </div>
       )}
     </div>
   );
