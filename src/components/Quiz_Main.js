@@ -1,4 +1,11 @@
+import React, { useEffect, useState } from "react";
+
 const Quiz_Main = () => {
+  const submitAnswer = () => {};
+  const nextQuestion = () => {};
+  const submitQuiz = () => {};
+  const [isLastQuestion, setIsLastQuestion] = useState(false);
+
   return (
     <>
       <div className="container">
@@ -49,16 +56,25 @@ const Quiz_Main = () => {
             <div className="col">
               <button
                 className="btn-large waves-effect waves-light teal"
-                onclick="answerQuestion()"
+                onclick={submitAnswer}
               >
                 Submit Answer
               </button>
-              <button
-                className="btn-large waves-effect waves-light teal"
-                onclick="nextQuestion()"
-              >
-                Next Question
-              </button>
+              {isLastQuestion ? (
+                <button
+                  className="btn-large waves-effect waves-light teal"
+                  onClick={submitQuiz}
+                >
+                  Finish
+                </button>
+              ) : (
+                <button
+                  className="btn-large waves-effect waves-light teal"
+                  onClick={nextQuestion}
+                >
+                  Next Question
+                </button>
+              )}
             </div>
           </div>
         </div>
