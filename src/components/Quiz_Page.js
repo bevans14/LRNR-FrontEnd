@@ -9,6 +9,7 @@ export default function Quiz_Page() {
   const [evaluationResult, setEvaluationResult] = useState('');
   const [evaluationExplanation, setEvaluationExplanation] = useState('');
   const [isQuizFinished, setIsQuizFinished] = useState(false);
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
   const quizData = location.state?.questions || [];
 
   const handleAnswerChange = (e) => {
@@ -26,15 +27,17 @@ export default function Quiz_Page() {
       const data = await response.json();
       setEvaluationResult(data.evaluation);
       setEvaluationExplanation(data.explanation);
+      setIsAnswerSubmitted(true);
     } catch (error) {
       console.error("Failed to submit answer for evaluation:", error);
-      
+      setIsAnswerSubmitted(false);
     }
   };
 
   const handleNextQuestion = () => {
     setEvaluationResult('');
     setEvaluationExplanation('');
+    setIsAnswerSubmitted(false);
     if (currentQuestionIndex < quizData.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
@@ -60,27 +63,30 @@ export default function Quiz_Page() {
             />
             <label htmlFor="answer" className={userAnswers[currentQuestionIndex] ? "active" : ""}>Your Answer</label>
           </div>
-          <button
-            className="btn waves-effect waves-light"
-            onClick={handleSubmitAnswer}
-            disabled={!userAnswers[currentQuestionIndex]}
-          >
-            Submit Answer
-          </button>
-          {evaluationResult && (
-            <div className="evaluation-result">
-              <strong>Evaluation:</strong> Your answer is {evaluationResult}.<br />
-              <strong>Explanation:</strong> {evaluationExplanation}
-            </div>
+          {!isAnswerSubmitted && (
+            <button
+              className="btn waves-effect waves-light"
+              onClick={handleSubmitAnswer}
+              disabled={!userAnswers[currentQuestionIndex]}
+            >
+              Submit Answer
+            </button>
           )}
-          <button
-            className="btn waves-effect waves-light"
-            style={{ marginTop: '20px' }}
-            onClick={handleNextQuestion}
-            disabled={evaluationResult === ''}
-          >
-            {currentQuestionIndex < quizData.length - 1 ? "Next Question" : "Finish Test"}
-          </button>
+          {isAnswerSubmitted && (
+            <>
+              <div className="evaluation-result">
+                <strong>Evaluation:</strong> Your answer is {evaluationResult}.<br />
+                <strong>Explanation:</strong> {evaluationExplanation}
+              </div>
+              <button
+                className="btn waves-effect waves-light"
+                style={{ marginTop: '20px' }}
+                onClick={handleNextQuestion}
+              >
+                {currentQuestionIndex < quizData.length - 1 ? "Next Question" : "Finish Test"}
+              </button>
+            </>
+          )}
         </>
       )}
       {isQuizFinished && (
