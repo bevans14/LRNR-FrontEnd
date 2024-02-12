@@ -5,6 +5,7 @@ import Home from "./Home";
 import Account from "./Account";
 import Categories from "./Categories";
 import Quiz from "./Quiz";
+import Results from "./Results";
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/account" element={<Account />} />
           <Route path="/categories" element={<Categories />} />
-          <Route path="/quiz" element={<Quiz />} />  
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/results" element={<Results />} />
         </Routes>
       </Router>
     </div>

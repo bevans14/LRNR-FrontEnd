@@ -25,8 +25,7 @@ export default function Home_Main() {
             {/* FIXME Link to Quiz? or link to login for phase 2? */}
             <a
               id="download-button"
-              className="btn-large waves-effect waves-light teal"
-            >
+              className="btn-large waves-effect waves-light teal">
               Begin Journey
             </a>
           </div>
