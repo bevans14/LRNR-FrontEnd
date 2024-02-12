@@ -23,7 +23,8 @@ const Quiz_Main = () => {
             </div>
             <div
               className="col s12 header-5 quiz-transition"
-              id="questionBlock"></div>
+              id="questionBlock"
+            ></div>
           </div>
         </div>
         <br />
@@ -48,8 +49,15 @@ const Quiz_Main = () => {
             <div className="col">
               <button
                 className="btn-large waves-effect waves-light teal"
-                onclick="answerQuestion()">
+                onclick="answerQuestion()"
+              >
                 Submit Answer
+              </button>
+              <button
+                className="btn-large waves-effect waves-light teal"
+                onclick="nextQuestion()"
+              >
+                Next Question
               </button>
             </div>
           </div>
@@ -89,7 +97,8 @@ const Quiz_Main = () => {
             <div className="col">
               <button
                 className="btn-large waves-effect waves-light teal"
-                onclick="nextQuestion()">
+                onclick="nextQuestion()"
+              >
                 Next
               </button>
             </div>
