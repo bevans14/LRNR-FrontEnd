@@ -1,0 +1,14 @@
+.body {
+  margin: 42px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button {
+  width: 68px;
+}
+
+h1 {
+  margin-top: 0;
+}

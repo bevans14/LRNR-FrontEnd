@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import "../css/quiz.css";
+import "../css/shared.css";
 
 export default function Quiz_Page() {
   const location = useLocation();
@@ -9,8 +11,7 @@ export default function Quiz_Page() {
   //access the questions passed via state
   const [quizData, setQuizData] = useState(location.state?.questions || []);
 
-  useEffect(() => {
-  }, [quizData]);
+  useEffect(() => {}, [quizData]);
 
   const handleNextQuestion = () => {
     if (currentQuestionIndex < quizData.length - 1) {
@@ -26,7 +27,7 @@ export default function Quiz_Page() {
   };
 
   return (
-    <div className="container">
+    <div className="container body">
       <h1>Quiz Page</h1>
       {!isQuizFinished && quizData.length > 0 && (
         <>
@@ -37,10 +38,15 @@ export default function Quiz_Page() {
               type="text"
               id="answer"
               name="answer"
-              value={userAnswers[currentQuestionIndex] || ''}
+              value={userAnswers[currentQuestionIndex] || ""}
               onChange={handleAnswerChange}
             />
-            <label htmlFor="answer" className={userAnswers[currentQuestionIndex] ? "active" : ""}>Your Answer</label>
+            <label
+              htmlFor="answer"
+              className={userAnswers[currentQuestionIndex] ? "active" : ""}
+            >
+              Your Answer
+            </label>
           </div>
           <button
             className="btn waves-effect waves-light"
@@ -59,7 +65,7 @@ export default function Quiz_Page() {
               <li key={index}>
                 Question {index + 1}: {question}
                 <br />
-                Your Answer: {userAnswers[index] || 'Not answered'}
+                Your Answer: {userAnswers[index] || "Not answered"}
               </li>
             ))}
           </ul>
