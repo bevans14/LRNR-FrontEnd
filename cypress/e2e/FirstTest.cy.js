@@ -11,7 +11,7 @@ describe('Homepage', () => {
 
   it('Has a footer', () => {
     cy.visit('http://localhost:3000')
-    cy.get('footer').should('exist') // Replace 'footer' with your footer selector
+    cy.get('footer').should('exist') 
   })
 
   it('Displays featured content', () => {
