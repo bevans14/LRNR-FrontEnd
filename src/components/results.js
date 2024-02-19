@@ -1,10 +1,12 @@
 import React from "react";
+import "../css/shared.css";
+
 const Results = () => {
   return (
     <>
       {/* Hello world */}
       <div className="section no-pad-bot" id="index-banner">
-        <div className="container">
+        <div className="container body">
           <br />
           <br />
           <h1 className="header center teal-text main-header">lrnr</h1>
@@ -18,7 +20,8 @@ const Results = () => {
             <a
               id="download-button"
               className="btn-large waves-effect waves-light teal"
-              href="/categories">
+              href="/categories"
+            >
               Try Another Quiz
             </a>
           </div>
