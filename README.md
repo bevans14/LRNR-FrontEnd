@@ -28,7 +28,7 @@ You can access the application in your browser via http://localhost:3000
 
 #### Navigation
 
-From the static **homepage**, you can use the navbar, hamburger menu, or footer links to navigate to the [**quiz generation**](http://localhost:3000/categories) page or the static [**account**](http://localhost:3000/account) page.
+From the static [**homepage**](http://localhost:3000), you can use the navbar, hamburger menu, or footer links to navigate to the [**quiz generation**](http://localhost:3000/categories) page or the static [**account**](http://localhost:3000/account) page.
 
 #### Quiz Generation
 
