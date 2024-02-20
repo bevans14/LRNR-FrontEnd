@@ -2,7 +2,7 @@
 
 This app is intended to be run alongside the LRNR APP back-end, which you can find here: https://github.com/bevans14/LRNR-backend1
 
-This project uses React.js
+This project uses React.js and NPM libraries.
 
 ## Getting Started
 
@@ -39,3 +39,5 @@ With each question, you will submit an answer, which will also query the API to 
 Once you reach the last question's evaluation and click the _finish test_ button, you'll be redirected to the static results page.
 
 To begin again, you can navigate to the quiz generation page using the _try another quiz_ button or via the navbar or footer links
+
+Enjoy!
