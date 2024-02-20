@@ -2,10 +2,13 @@
 
 #### Authors
 
-@erickrodea
-@bevans14
-@reggiecheston
-@kennidystillwell
+##### [Erick Rodea](https://github.com/erickrodea)
+
+##### [Brooke Evans](https://github.com/bevans14)
+
+##### [Reggie Cheston](https://github.com/reggiecheston)
+
+##### [Kennidy Stillwell](https://github.com/kennidystillwell)
 
 This app is intended to be run alongside the [LRNR APP back-end](https://github.com/bevans14/LRNR-backend1).
 
@@ -45,7 +48,7 @@ From the static [**homepage**](http://localhost:3000), you can use the navbar, h
 
 #### Quiz Generation
 
-Using the dropdowns you can select between different topics, levels of expertise, number of questions, and style of questions to query the OpenAI API to generate a personalized coding-related quiz.
+Using the dropdowns you can select between different topics, levels of expertise, number of questions, and style of questions to query the OpenAI API to generate a personalized coding-related quiz. The following table displays the list of dropdown options:
 
 | **Topic**    | **Expertise Level** | **Question Style**     | **Number of Questions** |
 | ------------ | ------------------- | ---------------------- | ----------------------- |
