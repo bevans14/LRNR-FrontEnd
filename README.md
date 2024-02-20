@@ -1,14 +1,24 @@
 # LRNR APP (front-end)
 
+This app is intended to be run alongside the LRNR APP back-end, which you can find here: https://github.com/bevans14/LRNR-backend1
+
+This project uses React.js
+
 ## Getting Started
 
-In the root directory:
+- Clone repository:
 
-Install Dependencies
+> git clone https://github.com/bevans14/LRNR-FrontEnd.git
+
+- Open the directory in your prefered code editor
+
+#### In the root directory:
+
+- Install Dependencies:
 
 > npm install
 
-Run application
+- Run application:
 
 > npm start
 
@@ -16,11 +26,11 @@ Run application
 
 You can access the application in your browser via http://localhost:3000
 
-### Navigation
+#### Navigation
 
 From the static **homepage**, you can use the navbar, hamburger menu, or footer links to navigate to the **quiz generation** page (http://localhost:3000/categories) or the static **account** page (http://localhost:3000/account).
 
-### Quiz Generation
+#### Quiz Generation
 
 Using the dropdowns you can select between different topics, levels of expertise, number of questions, and style of questions to query the OpenAI API to generate a personalized coding-related quiz.
 
