@@ -10,11 +10,11 @@ This project uses React.js and NPM libraries.
 
 > git clone https://github.com/bevans14/LRNR-FrontEnd.git
 
-- Open the directory in your prefered code editor
+- Open the directory in your preferred code editor
 
 #### In the root directory:
 
-- Install Dependencies:
+- Install dependencies:
 
 > npm install
 
