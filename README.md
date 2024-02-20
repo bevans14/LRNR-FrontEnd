@@ -1,6 +1,6 @@
 # LRNR APP (front-end)
 
-This app is intended to be run alongside the LRNR APP back-end, which you can find here: https://github.com/bevans14/LRNR-backend1
+This app is intended to be run alongside the [LRNR APP back-end](https://github.com/bevans14/LRNR-backend1).
 
 This project uses React.js and NPM libraries.
 
@@ -28,7 +28,7 @@ You can access the application in your browser via http://localhost:3000
 
 #### Navigation
 
-From the static **homepage**, you can use the navbar, hamburger menu, or footer links to navigate to the **quiz generation** page (http://localhost:3000/categories) or the static **account** page (http://localhost:3000/account).
+From the static **homepage**, you can use the navbar, hamburger menu, or footer links to navigate to the [**quiz generation**](http://localhost:3000/categories) page or the static [**account**](http://localhost:3000/account) page.
 
 #### Quiz Generation
 
@@ -41,3 +41,11 @@ Once you reach the last question's evaluation and click the _finish test_ button
 To begin again, you can navigate to the quiz generation page using the _try another quiz_ button or via the navbar or footer links
 
 Enjoy!
+
+---
+
+##### Resources
+
+##### [React.js docs](https://legacy.reactjs.org/docs/getting-started.html)
+
+##### [NPM docs](https://docs.npmjs.com/)
