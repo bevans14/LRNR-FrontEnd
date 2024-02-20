@@ -1,75 +1,31 @@
-# Getting Started with Create React App
+# LRNR APP (front-end)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting Started
 
-## Available Scripts
+In the root directory:
 
-In the project directory, you can run:
+Install Dependencies
 
-### `npm start`
+> npm install
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Run application
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+> npm start
 
-### `npm test`
+## User Guide
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can access the application in your browser via http://localhost:3000
 
-### `npm run build`
+### Navigation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+From the static **homepage**, you can use the navbar, hamburger menu, or footer links to navigate to the **quiz generation** page (http://localhost:3000/categories) or the static **account** page (http://localhost:3000/account).
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Quiz Generation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Using the dropdowns you can select between different topics, levels of expertise, number of questions, and style of questions to query the OpenAI API to generate a personalized coding-related quiz.
 
-### `npm run eject`
+With each question, you will submit an answer, which will also query the API to evaluate and grade the answer on correctness from 0% - 100%. Once an answer is evaluated, you can navigate to the next question using the _next question_ button.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Once you reach the last question's evaluation and click the _finish test_ button, you'll be redirected to the static results page.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# LRNR
-# LRNR
-# FrontEnd-Testing
-# FrontEnd-Testing
-# FrontEnd-Testing
+To begin again, you can navigate to the quiz generation page using the _try another quiz_ button or via the navbar or footer links
