@@ -42,7 +42,10 @@ To begin again, you can navigate to the quiz generation page using the _try anot
 
 Enjoy!
 
+---
+
 ##### Resources
 
-[React.js docs](https://legacy.reactjs.org/docs/getting-started.html)
-[NPM docs](https://docs.npmjs.com/)
+##### [React.js docs](https://legacy.reactjs.org/docs/getting-started.html)
+
+##### [NPM docs](https://docs.npmjs.com/)
